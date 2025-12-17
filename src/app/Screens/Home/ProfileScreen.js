@@ -182,10 +182,7 @@ export default function ProfileScreen() {
         showsVerticalScrollIndicator={false}>
         {/* User Info Card - Nếu đã đăng nhập */}
         {auth.isLoggedIn && (
-          <TouchableOpacity
-            onPress={() => RootNavigation.navigate('ThongTinCaNhan')}
-            activeOpacity={0.7}
-            style={styles.userInfoCard}>
+          <TouchableOpacity activeOpacity={0.7} style={styles.userInfoCard}>
             <View style={styles.userInfoLeft}>
               <View style={styles.avatarCircle}>
                 <Ionicons name="person" size={32} color="#0984e3" />
@@ -229,79 +226,10 @@ export default function ProfileScreen() {
         {/* Menu Section */}
         <View style={styles.menuSection}>
           <Text style={styles.sectionTitle}>CÀI ĐẶT</Text>
-
           <View style={styles.menuCard}>
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => RootNavigation.navigate('DangKyThongBaoTauCa')}
-              activeOpacity={0.7}>
-              <View style={styles.menuItemLeft}>
-                <View
-                  style={[
-                    styles.iconContainer,
-                    isSubscribed ? styles.iconActive : styles.iconDefault,
-                  ]}>
-                  <Ionicons
-                    name={
-                      isSubscribed ? 'checkmark-done' : 'notifications-outline'
-                    }
-                    size={20}
-                    color={isSubscribed ? '#27ae60' : '#0984e3'}
-                  />
-                </View>
-                <View style={styles.menuTextContainer}>
-                  <Text style={styles.menuItemTitle}>
-                    {isSubscribed
-                      ? 'Quản lý thông báo tàu cá hết hạn'
-                      : 'Đăng ký thông báo tàu cá hết hạn'}
-                  </Text>
-                  <Text style={styles.menuItemSubtitle}>
-                    {isSubscribed
-                      ? 'Xem và chỉnh sửa đăng ký'
-                      : 'Nhận thông báo tàu cá'}
-                  </Text>
-                </View>
-              </View>
-              <Ionicons name="chevron-forward" size={20} color="#bdc3c7" />
-            </TouchableOpacity>
-
-            <View style={styles.divider} />
-
-            <TouchableOpacity
-              style={styles.menuItem}
-              onPress={() =>
-                RootNavigation.navigate('PhanAnh', {
-                  screen: 'PhanAnhCuaToi',
-                  backNavi: true,
-                })
-              }
-              activeOpacity={0.7}>
-              <View style={styles.menuItemLeft}>
-                <View style={styles.iconContainer}>
-                  <MaterialIcons
-                    name="outgoing-mail"
-                    size={20}
-                    color="#0984e3"
-                  />
-                </View>
-                <View style={styles.menuTextContainer}>
-                  <Text style={styles.menuItemTitle}>Phản ánh đã gửi</Text>
-                  <Text style={styles.menuItemSubtitle}>
-                    Danh sách phản ánh đã gửi trên thiết bị này
-                  </Text>
-                </View>
-              </View>
-              <Ionicons name="chevron-forward" size={20} color="#bdc3c7" />
-            </TouchableOpacity>
-
-            <View style={styles.divider} />
-
-            <TouchableOpacity
-              style={styles.menuItem}
-              onPress={() =>
-                // Alert.alert('Thông tin ứng dụng', 'Phiên bản 1.0.0')
-                RootNavigation.navigate('ThongTinUngDung')
-              }
+              // onPress={() => RootNavigation.navigate('ThongTinUngDung')}
               activeOpacity={0.7}>
               <View style={styles.menuItemLeft}>
                 <View style={styles.iconContainer}>
@@ -321,8 +249,6 @@ export default function ProfileScreen() {
               <Ionicons name="chevron-forward" size={20} color="#bdc3c7" />
             </TouchableOpacity>
           </View>
-
-          {/* Login/Logout Button */}
           <View style={styles.actionButtonContainer}>
             {auth.isLoggedIn ? (
               <TouchableOpacity

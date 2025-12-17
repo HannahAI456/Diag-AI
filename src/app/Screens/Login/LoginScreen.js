@@ -396,38 +396,7 @@ const LoginScreen = () => {
                 {/* Glass Card Container */}
                 <View style={styles.glassCard}>
                   {/* Logo Section */}
-                  <View style={styles.logoContainer}>
-                    <Image
-                      style={{width: 60, height: 60}}
-                      source={require('../../../asset/Image/Splash/QuocHuy.png')}
-                    />
-                  </View>
-                  <View style={{marginBottom: 20}}>
-                    <Text
-                      style={[
-                        styles.title,
-                        {
-                          textAlign: 'center',
-                          fontWeight: '800',
-                          color: AppColors.MainColor,
-                          fontSize: 20,
-                        },
-                      ]}>
-                      SỞ NÔNG NGHIỆP VÀ MÔI TRƯỜNG TỈNH CÀ MAU
-                    </Text>
-                    <Text
-                      style={[
-                        styles.title,
-                        {
-                          textAlign: 'center',
-                          color: '#5f5f5f',
-                          fontSize: 17,
-                          fontWeight: '800',
-                        },
-                      ]}>
-                      CƠ SỞ DỮ LIỆU CHUYÊN NGÀNH
-                    </Text>
-                  </View>
+
                   {/* Email Input */}
                   <View
                     style={[
@@ -524,106 +493,12 @@ const LoginScreen = () => {
                       )}
                     </LinearGradient>
                   </TouchableOpacity>
-
-                  {/* Social Login */}
-                  <View style={styles.socialContainer}>
-                    <View style={styles.dividerContainer}>
-                      <View style={styles.divider} />
-                      <Text style={styles.dividerText}>
-                        Hoặc đăng nhập bằng
-                      </Text>
-                      <View style={styles.divider} />
-                    </View>
-
-                    {/* <View style={styles.socialButtons}>
-                      <TouchableOpacity style={styles.socialBtn}>
-                        <Icon name="facebook" size={24} color="#3b5998" />
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.socialBtn}>
-                        <MaterialIcon name="google" size={24} color="#ea4335" />
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.socialBtn}>
-                        <Icon name="github" size={24} color="#333" />
-                      </TouchableOpacity>
-                    </View> */}
-                    <TouchableOpacity
-                      style={styles.loginBtnContainer}
-                      onPress={handleSSOLogin}
-                      activeOpacity={0.8}
-                      disabled={loading}>
-                      <LinearGradient
-                        colors={['#9FC5E8', '#c39977']}
-                        start={{x: 0, y: 0}}
-                        end={{x: 1, y: 0}}
-                        style={styles.loginBtn}>
-                        {loading ? (
-                          <ActivityIndicator color="#fff" size="small" />
-                        ) : (
-                          <Text style={styles.loginBtnText}>Đăng nhập SSO</Text>
-                        )}
-                      </LinearGradient>
-                    </TouchableOpacity>
-                  </View>
-
-                  {/* Sign Up Link */}
-
-                  {/* <View style={styles.signupContainer}>
-                    <Text style={styles.signupTextNormal}>
-                      Chưa có tài khoản?
-                    </Text>
-                    <TouchableOpacity>
-                      <Text style={styles.signupText}> Đăng ký ngay</Text>
-                    </TouchableOpacity>
-                  </View> */}
                 </View>
               </Animated.View>
             </ScrollView>
           </KeyboardAvoidingView>
         </SafeAreaView>
       </LinearGradient>
-
-      {/* SSO WebView Modal */}
-      <Modal
-        visible={showSSOWebView}
-        animationType="slide"
-        onRequestClose={() => setShowSSOWebView(false)}>
-        <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-          <View style={styles.webViewHeader}>
-            <TouchableOpacity
-              onPress={() => setShowSSOWebView(false)}
-              style={styles.webViewCloseButton}>
-              <Icon name="x" size={24} color="#333" />
-            </TouchableOpacity>
-            <Text style={styles.webViewTitle}>Đăng nhập SSO</Text>
-            <View style={{width: 40}} />
-          </View>
-          {loading && (
-            <View style={styles.webViewLoading}>
-              <ActivityIndicator size="large" color={AppColors.MainColor} />
-              <Text style={{marginTop: 10, color: '#666'}}>
-                Đang xử lý đăng nhập...
-              </Text>
-            </View>
-          )}
-          <WebView
-            source={{uri: 'https://nongnghiep.csctech.vn/auth/login-mobile'}}
-            onNavigationStateChange={handleWebViewNavigationStateChange}
-            onMessage={handleWebViewMessage}
-            startInLoadingState={true}
-            renderLoading={() => (
-              <ActivityIndicator
-                size="large"
-                color={AppColors.MainColor}
-                style={{marginTop: 20}}
-              />
-            )}
-            style={{flex: 1}}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            sharedCookiesEnabled={true}
-          />
-        </SafeAreaView>
-      </Modal>
     </ImageBackground>
   );
 };
