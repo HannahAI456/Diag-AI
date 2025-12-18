@@ -1,6 +1,10 @@
-import {StatusBar, ScrollView} from 'react-native';
+import {StatusBar, ScrollView, View} from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeArea,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import {styles} from './styles';
 import {RootNavigation} from '../../Common/RootNavigation';
 import ImageViewer from '../../Components/ImageViewer';
@@ -50,6 +54,14 @@ const HomeScreen = () => {
     const image = await openCamera();
     if (image) {
       setSelectedImage(image);
+      // Auto analyze after selecting image
+      await analyzeImage(
+        image,
+        async result => {
+          await addToHistory(image, result);
+        },
+        language,
+      );
     }
   };
 
@@ -61,14 +73,26 @@ const HomeScreen = () => {
     const image = await openGallery();
     if (image) {
       setSelectedImage(image);
+      // Auto analyze after selecting image
+      await analyzeImage(
+        image,
+        async result => {
+          await addToHistory(image, result);
+        },
+        language,
+      );
     }
   };
 
   // Handle analyze
   const handleAnalyze = async () => {
-    await analyzeImage(selectedImage, async result => {
-      await addToHistory(selectedImage, result);
-    }, language);
+    await analyzeImage(
+      selectedImage,
+      async result => {
+        await addToHistory(selectedImage, result);
+      },
+      language,
+    );
   };
 
   // Handle reset
@@ -81,9 +105,13 @@ const HomeScreen = () => {
   // View history item
   const viewHistoryItem = item => {
     setSelectedImage(item.image);
-    analyzeImage(item.image, () => {
-      // Just display the result, don't save again
-    }, language);
+    analyzeImage(
+      item.image,
+      () => {
+        // Just display the result, don't save again
+      },
+      language,
+    );
     setShowHistoryModal(false);
   };
 
@@ -93,7 +121,10 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={['']}>
+      <View
+        style={{height: useSafeAreaInsets().top, backgroundColor: '#fff'}}
+      />
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
       <HomeHeader
@@ -120,18 +151,8 @@ const HomeScreen = () => {
           />
         )}
 
-        {/* Image Preview - Show after selecting image */}
-        {selectedImage && !analysisResult && !analyzing && (
-          <ImagePreview
-            imageUri={selectedImage.uri}
-            onCancel={() => setSelectedImage(null)}
-            onAnalyze={handleAnalyze}
-            onImagePress={() => openImageViewer(selectedImage.uri)}
-          />
-        )}
-
         {/* Analysis Loading */}
-        {analyzing && <AnalysisLoading />}
+        {analyzing && <AnalysisLoading language={language} />}
 
         {/* Analysis Result */}
         {analysisResult && (
@@ -152,6 +173,7 @@ const HomeScreen = () => {
         onClose={() => setShowImagePickerModal(false)}
         onCamera={handleCamera}
         onGallery={handleGallery}
+        language={language}
       />
 
       {/* History Modal */}
@@ -163,6 +185,7 @@ const HomeScreen = () => {
         onViewItem={viewHistoryItem}
         onDeleteItem={deleteHistoryItem}
         onImagePress={openImageViewer}
+        language={language}
       />
 
       {/* Image Viewer */}

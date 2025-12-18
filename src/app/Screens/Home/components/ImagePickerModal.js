@@ -2,8 +2,11 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from '../styles';
+import {useTranslation} from '../hooks/useTranslation';
 
-export const ImagePickerModal = ({visible, onClose, onCamera, onGallery}) => {
+export const ImagePickerModal = ({visible, onClose, onCamera, onGallery, language = 'vi'}) => {
+  const {t} = useTranslation(language);
+
   return (
     <Modal
       visible={visible}
@@ -18,7 +21,7 @@ export const ImagePickerModal = ({visible, onClose, onCamera, onGallery}) => {
         />
         <View style={styles.imagePickerModalContent}>
           <View style={styles.imagePickerModalHeader}>
-            <Text style={styles.imagePickerModalTitle}>Chọn hình ảnh</Text>
+            <Text style={styles.imagePickerModalTitle}>{t.imagePicker.title}</Text>
             <TouchableOpacity
               onPress={onClose}
               style={styles.imagePickerModalCloseButton}>
@@ -35,9 +38,9 @@ export const ImagePickerModal = ({visible, onClose, onCamera, onGallery}) => {
               <Icon name="camera" size={28} color="#2196F3" />
             </View>
             <View style={styles.imagePickerOptionContent}>
-              <Text style={styles.imagePickerOptionTitle}>Chụp ảnh</Text>
+              <Text style={styles.imagePickerOptionTitle}>{t.imagePicker.camera}</Text>
               <Text style={styles.imagePickerOptionDescription}>
-                Mở camera để chụp ảnh mới và chỉnh sửa
+                {t.imagePicker.cameraDesc}
               </Text>
             </View>
             <Icon name="chevron-right" size={24} color="#999" />
@@ -53,10 +56,10 @@ export const ImagePickerModal = ({visible, onClose, onCamera, onGallery}) => {
             </View>
             <View style={styles.imagePickerOptionContent}>
               <Text style={styles.imagePickerOptionTitle}>
-                Chọn từ thư viện
+                {t.imagePicker.gallery}
               </Text>
               <Text style={styles.imagePickerOptionDescription}>
-                Chọn ảnh có sẵn và chỉnh sửa, cắt theo ý muốn
+                {t.imagePicker.galleryDesc}
               </Text>
             </View>
             <Icon name="chevron-right" size={24} color="#999" />

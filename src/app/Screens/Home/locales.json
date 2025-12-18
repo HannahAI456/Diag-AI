@@ -18,27 +18,37 @@
       "analyze": "Phân tích"
     },
     "loading": {
+      "analyzing": "Đang phân tích hình ảnh...",
+      "pleaseWait": "Vui lòng đợi trong giây lát"
+    },
+    "loading": {
       "analyzing": "Đang phân tích...",
       "pleaseWait": "Vui lòng đợi trong giây lát"
     },
     "result": {
       "title": "Kết quả phân tích",
-      "confidence": "Độ tin cậy",
-      "description": "Mô tả",
-      "recommendation": "Khuyến nghị",
-      "reset": "Kiểm tra lại",
-      "share": "Chia sẻ"
+      "diagnosis": "Chẩn đoán:",
+      "confidence": "Độ tin cậy:",
+      "description": "Mô tả:",
+      "recommendations": "Khuyến nghị:",
+      "newCheck": "Kiểm tra mới",
+      "share": "Chia sẻ",
+      "disclaimer": "Kết quả chỉ mang tính chất tham khảo. Vui lòng gặp bác sĩ để được tư vấn chính xác."
     },
     "history": {
       "title": "Lịch sử kiểm tra",
-      "empty": "Chưa có lịch sử",
+      "empty": "Chưa có lịch sử kiểm tra",
+      "emptyDesc": "Các kết quả phân tích sẽ được lưu tại đây",
       "clearAll": "Xóa tất cả",
-      "delete": "Xóa"
+      "delete": "Xóa",
+      "confidence": "độ tin cậy"
     },
     "imagePicker": {
-      "title": "Chọn ảnh",
+      "title": "Chọn hình ảnh",
       "camera": "Chụp ảnh",
-      "gallery": "Thư viện",
+      "cameraDesc": "Mở camera để chụp ảnh mới và chỉnh sửa",
+      "gallery": "Chọn từ thư viện",
+      "galleryDesc": "Chọn ảnh có sẵn và chỉnh sửa, cắt theo ý muốn",
       "cancel": "Hủy"
     },
     "bottomNav": {
@@ -65,27 +75,37 @@
       "analyze": "Analyze"
     },
     "loading": {
+      "analyzing": "Analyzing image...",
+      "pleaseWait": "Please wait a moment"
+    },
+    "loading": {
       "analyzing": "Analyzing...",
       "pleaseWait": "Please wait a moment"
     },
     "result": {
       "title": "Analysis Result",
-      "confidence": "Confidence",
-      "description": "Description",
-      "recommendation": "Recommendation",
-      "reset": "Check again",
-      "share": "Share"
+      "diagnosis": "Diagnosis:",
+      "confidence": "Confidence:",
+      "description": "Description:",
+      "recommendations": "Recommendations:",
+      "newCheck": "New Check",
+      "share": "Share",
+      "disclaimer": "Results are for reference only. Please consult a doctor for accurate advice."
     },
     "history": {
-      "title": "History",
-      "empty": "No history yet",
+      "title": "Check History",
+      "empty": "No check history",
+      "emptyDesc": "Analysis results will be saved here",
       "clearAll": "Clear all",
-      "delete": "Delete"
+      "delete": "Delete",
+      "confidence": "confidence"
     },
     "imagePicker": {
       "title": "Choose Image",
       "camera": "Take Photo",
-      "gallery": "Gallery",
+      "cameraDesc": "Open camera to take and edit new photo",
+      "gallery": "Choose from Gallery",
+      "galleryDesc": "Select and edit existing photos as you like",
       "cancel": "Cancel"
     },
     "bottomNav": {

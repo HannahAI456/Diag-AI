@@ -3,10 +3,10 @@
 set -e
 
 # === CONFIG ===
-ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYzOTc2NzAzLCJleHAiOjE3NjY1Njg3MDN9.Z12akE6cxTlYQr6wvmvy_ISnEAz4gd9IVFOeb5yhlUw"
+ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1NzgyMjY0LCJleHAiOjE3NjgzNzQyNjR9.OZoYdB-a083GYiXR4WljeIN1I0uEMAAx4BEjw6RfCR4"
 UPLOAD_URL="https://ota-update.csctech.vn/upload"
-PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::android.android/nuknrvim1udd42ndf6kw2e3c/actions/publish"
-NOTE="AppNongNghiepCaMau"
+PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::android.android/inw51w8cifpnom4zjswap247/actions/publish"
+NOTE="Diag AI"
 
 # === PROMPT VERSION ===
 read -p "🔢 Nhập version cho Android (ví dụ: 1.0.1): " TARGET_VERSION

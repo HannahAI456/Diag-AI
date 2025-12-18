@@ -21,7 +21,7 @@ module.exports = {
   globalParams: null,
   UserId: null,
   AppInfomations: null,
-  updateVersionAppName: 'SkinCheck',
+  updateVersionAppName: 'Diag AI',
   logAPI: true,
   apiTauCa: 'https://tauca.nongnghiepcamau.vn/',
   StaticTokenTauCa: null,

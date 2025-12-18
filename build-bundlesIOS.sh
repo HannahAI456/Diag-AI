@@ -3,10 +3,14 @@
 set -e
 
 # === CONFIG ===
-ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYzOTc2NzAzLCJleHAiOjE3NjY1Njg3MDN9.Z12akE6cxTlYQr6wvmvy_ISnEAz4gd9IVFOeb5yhlUw"
+ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1NzgyMjY0LCJleHAiOjE3NjgzNzQyNjR9.OZoYdB-a083GYiXR4WljeIN1I0uEMAAx4BEjw6RfCR4
+content-type
+application/json
+referer
+https://ota-update.csctech.vn/admin/content-manager/collection-types/api::ios-ipad.ios-ipad/gk0hv89m0l6x7tso9g70nal0"
 UPLOAD_URL="https://ota-update.csctech.vn/upload"
-PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::ios-ipad.ios-ipad/dium5ihibszo8a7zl15ykhah/actions/publish"
-NOTE="AppNongNghiepCaMau"
+PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::ios-ipad.ios-ipad/gk0hv89m0l6x7tso9g70nal0/actions/publish"
+NOTE="Diag AI"
 
 read -p "Nhập version (vd: 1.0.1): " VERSION
 

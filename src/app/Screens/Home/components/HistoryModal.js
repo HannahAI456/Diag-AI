@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Modal, ScrollView, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from '../styles';
+import {useTranslation} from '../hooks/useTranslation';
 
 export const HistoryModal = ({
   visible,
@@ -11,7 +12,10 @@ export const HistoryModal = ({
   onViewItem,
   onDeleteItem,
   onImagePress,
+  language = 'vi',
 }) => {
+  const {t} = useTranslation(language);
+
   return (
     <Modal
       visible={visible}
@@ -26,7 +30,7 @@ export const HistoryModal = ({
         />
         <View style={styles.historyModalContent}>
           <View style={styles.historyModalHeader}>
-            <Text style={styles.historyModalTitle}>Lịch sử kiểm tra</Text>
+            <Text style={styles.historyModalTitle}>{t.history.title}</Text>
             <View style={{flexDirection: 'row', gap: 8}}>
               {history.length > 0 && (
                 <TouchableOpacity
@@ -47,10 +51,10 @@ export const HistoryModal = ({
             <View style={styles.emptyHistoryContainer}>
               <Icon name="history" size={64} color="#ccc" />
               <Text style={styles.emptyHistoryText}>
-                Chưa có lịch sử kiểm tra
+                {t.history.empty}
               </Text>
               <Text style={styles.emptyHistorySubtext}>
-                Các kết quả phân tích sẽ được lưu tại đây
+                {t.history.emptyDesc}
               </Text>
             </View>
           ) : (
@@ -77,7 +81,7 @@ export const HistoryModal = ({
                       {item.result.diagnosis}
                     </Text>
                     <Text style={styles.historyItemDate}>
-                      {new Date(item.timestamp).toLocaleString('vi-VN', {
+                      {new Date(item.timestamp).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US', {
                         day: '2-digit',
                         month: '2-digit',
                         year: 'numeric',
@@ -88,7 +92,7 @@ export const HistoryModal = ({
                     <View style={styles.historyItemConfidence}>
                       <Icon name="check-circle" size={14} color="#4CAF50" />
                       <Text style={styles.historyItemConfidenceText}>
-                        {item.result.confidence}% độ tin cậy
+                        {item.result.confidence}% {t.history.confidence}
                       </Text>
                     </View>
                   </View>
