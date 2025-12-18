@@ -1,79 +1,147 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# App AI Y Tế - Ứng dụng phân tích hình ảnh y tế
 
-# Getting Started
+Ứng dụng React Native hỗ trợ phân tích hình ảnh y tế bằng AI với giao diện đa ngôn ngữ (Tiếng Việt/English).
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
-
-## Step 1: Start the Metro Server
-
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
+## Cài đặt & Chạy
 
 ```bash
-# using npm
-npm start
+# Cài đặt packages
+npm install
 
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
+# Chạy trên iOS
 npm run ios
 
-# OR using Yarn
-yarn ios
+# Chạy trên Android
+npm run android
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Cấu trúc Components
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+### 1. **HomeScreen** (`src/app/Screens/Home/HomeScreen.js`)
+Màn hình chính của ứng dụng, quản lý toàn bộ flow phân tích hình ảnh.
 
-## Step 3: Modifying your App
+**State chính:**
+- `selectedImage`: Hình ảnh được chọn để phân tích
+- `language`: Ngôn ngữ hiện tại ('vi' hoặc 'en')
+- `showImagePickerModal`: Hiển thị modal chọn ảnh
+- `showHistoryModal`: Hiển thị modal lịch sử
 
-Now that you have successfully run the app, let's modify it.
+**Chức năng:**
+- Chọn ảnh từ camera hoặc thư viện
+- Phân tích hình ảnh bằng AI
+- Lưu và xem lịch sử phân tích
+- Chuyển đổi ngôn ngữ
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### 2. **Custom Hooks**
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+#### `useImagePicker` (`hooks/useImagePicker.js`)
+Xử lý chọn ảnh từ camera/gallery.
+```javascript
+const {openCamera, openGallery} = useImagePicker();
+```
 
-## Congratulations! :tada:
+#### `useImageAnalysis` (`hooks/useImageAnalysis.js`)
+Xử lý phân tích hình ảnh với API.
+```javascript
+const {analyzing, analysisResult, analyzeImage, resetAnalysis} = useImageAnalysis();
 
-You've successfully run and modified your React Native App. :partying_face:
+// Gọi phân tích với ngôn ngữ
+analyzeImage(imageData, onSuccess, language);
+```
 
-### Now what?
+**Tham số `language`:** Truyền 'vi' hoặc 'en' để nhận kết quả theo ngôn ngữ tương ứng.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+#### `useHistory` (`hooks/useHistory.js`)
+Quản lý lịch sử phân tích.
+```javascript
+const {history, addToHistory, clearHistory, deleteHistoryItem} = useHistory();
+```
 
-# Troubleshooting
+### 3. **UI Components**
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+#### `HomeHeader`
+Header với nút lịch sử, thông báo và chuyển ngôn ngữ.
 
-# Learn More
+#### `HeroSection`
+Màn hình ban đầu với các nút chọn ảnh và kết quả gần đây.
 
-To learn more about React Native, take a look at the following resources:
+#### `ImagePreview`
+Xem trước hình ảnh đã chọn trước khi phân tích.
+```javascript
+<ImagePreview 
+  imageUri={image.uri}
+  onCancel={() => {}}
+  onAnalyze={handleAnalyze}
+  onImagePress={() => {}}
+/>
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+#### `AnalysisResult`
+Hiển thị kết quả phân tích với đa ngôn ngữ.
+```javascript
+<AnalysisResult 
+  imageUri={image.uri}
+  result={analysisResult}
+  onReset={() => {}}
+  onShare={() => {}}
+  language={language} // 'vi' hoặc 'en'
+/>
+```
+
+**Props:**
+- `language`: Quyết định ngôn ngữ hiển thị các label và nút
+
+#### `ImagePickerModal`
+Modal chọn nguồn ảnh (camera/gallery).
+
+#### `HistoryModal`
+Modal hiển thị lịch sử các lần phân tích.
+
+## Tích hợp API
+
+Trong file `hooks/useImageAnalysis.js`:
+
+```javascript
+// 1. Tạo FormData
+const formData = new FormData();
+formData.append('image', {
+  uri: imageData.uri,
+  type: imageData.type,
+  name: imageData.name,
+});
+formData.append('language', language); // Thêm ngôn ngữ
+
+// 2. Gọi API
+const response = await axios.post('YOUR_API_URL', formData);
+
+// 3. Xử lý kết quả
+const result = response.data;
+setAnalysisResult(result);
+```
+
+**Format kết quả API:**
+```javascript
+{
+  diagnosis: 'Tên bệnh',
+  confidence: 85,
+  description: 'Mô tả chi tiết',
+  recommendations: ['Khuyến nghị 1', 'Khuyến nghị 2']
+}
+```
+
+## Đa ngôn ngữ
+
+App hỗ trợ 2 ngôn ngữ: Tiếng Việt (vi) và English (en).
+
+**Cách thêm ngôn ngữ mới:**
+
+1. Cập nhật `translations` object trong component
+2. Thêm key ngôn ngữ vào state `language`
+3. API cần trả về dữ liệu theo ngôn ngữ tương ứng
+
+## Ghi chú
+
+- Mock data đang được sử dụng trong `useImageAnalysis.js`
+- Xóa mock data và bỏ comment API code khi tích hợp API thật
+- Lịch sử được lưu trong AsyncStorage
+- Hỗ trợ xem ảnh toàn màn hình với ImageViewer

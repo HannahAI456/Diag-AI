@@ -9,28 +9,12 @@ import {
   Platform,
   Image,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
-import {useRecoilValue} from 'recoil';
-import {menuState} from '../../Common/authAtom';
-
-// Import your screens
-import HomeSrceen from './Demo';
-import LoginScreen from '../Login/LoginScreen';
-import NotificationScreen from './NotificationScreen';
 import ProfileScreen from './ProfileScreen';
-import ExploreScreen from './ExploreScreen';
-import DemoScreen from './Demo';
 import HomeScreen from './HomeScreen';
-import BaoCao from '../BaoCao/BaoCao';
 import Global from '../../LocalData/Global';
-import BottomTabNavigator from '../../Navigation/BottomTabPhanAnhNavigator';
-import PhanAnh from '../PhanAnh/PhanAnh';
-import LinhVucNhomTin from '../LinhVucNhomTin/LinhVucNhomTin';
-import BaoCaoNhomTin from '../BaoCaoNhomTin/BaoCaoNhomTin';
-import DuLieuTab from './DuLieuTab/DuLieuTab';
 
 const AnimatedTabIcon = ({focused, icon, label, image}) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -92,7 +76,6 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
         },
       ]}>
       {image ? (
-        // Hiển thị hình ảnh nếu có
         focused ? (
           <LinearGradient
             colors={['#216f67', '#31a86f']}
@@ -113,7 +96,6 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
           />
         )
       ) : focused ? (
-        // Hiển thị icon nếu không có image
         <LinearGradient
           colors={['#216f67', '#31a86f']}
           start={{x: 0, y: 0}}
@@ -139,7 +121,6 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
 };
 
 const CustomTabBar = ({state, descriptors, navigation}) => {
-  // Ẩn tab bar nếu đang ở màn hình BottomTabNavigator
   const currentRoute = state.routes[state.index];
   if (currentRoute.name === 'BottomTabNavigator') {
     return null;
@@ -220,9 +201,9 @@ export default function TabNavigation() {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          tabBarLabel: 'Tài khoản',
+          tabBarLabel: 'Giới thiệu',
           tabBarIcon: ({focused}) => (
-            <AnimatedTabIcon focused={focused} icon="user" label="Tài khoản" />
+            <AnimatedTabIcon focused={focused} icon="info" label="Giới thiệu" />
           ),
         }}
       />

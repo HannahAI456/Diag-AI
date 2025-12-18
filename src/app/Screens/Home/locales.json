@@ -1,0 +1,96 @@
+{
+  "vi": {
+    "header": {
+      "language": "Tiếng Việt"
+    },
+    "hero": {
+      "title": "Diag AI",
+      "subtitle": "Hệ thống hỗ trợ chẩn đoán bệnh\ntay chân miệng cho trẻ em",
+      "galleryButton": "Chọn ảnh từ thư viện",
+      "cameraButton": "Chụp ảnh trực tiếp",
+      "recentResults": "Kết quả chẩn đoán gần nhất",
+      "viewMore": "Xem thêm",
+      "confidence": "Mức độ"
+    },
+    "imagePreview": {
+      "title": "Xem trước ảnh",
+      "cancel": "Hủy",
+      "analyze": "Phân tích"
+    },
+    "loading": {
+      "analyzing": "Đang phân tích...",
+      "pleaseWait": "Vui lòng đợi trong giây lát"
+    },
+    "result": {
+      "title": "Kết quả phân tích",
+      "confidence": "Độ tin cậy",
+      "description": "Mô tả",
+      "recommendation": "Khuyến nghị",
+      "reset": "Kiểm tra lại",
+      "share": "Chia sẻ"
+    },
+    "history": {
+      "title": "Lịch sử kiểm tra",
+      "empty": "Chưa có lịch sử",
+      "clearAll": "Xóa tất cả",
+      "delete": "Xóa"
+    },
+    "imagePicker": {
+      "title": "Chọn ảnh",
+      "camera": "Chụp ảnh",
+      "gallery": "Thư viện",
+      "cancel": "Hủy"
+    },
+    "bottomNav": {
+      "home": "Trang chủ",
+      "info": "Giới thiệu"
+    }
+  },
+  "en": {
+    "header": {
+      "language": "English"
+    },
+    "hero": {
+      "title": "Diag AI",
+      "subtitle": "Hand, Foot and Mouth Disease\nDiagnosis Support System for Children",
+      "galleryButton": "Choose from gallery",
+      "cameraButton": "Take a photo",
+      "recentResults": "Recent diagnosis results",
+      "viewMore": "View more",
+      "confidence": "Confidence"
+    },
+    "imagePreview": {
+      "title": "Image Preview",
+      "cancel": "Cancel",
+      "analyze": "Analyze"
+    },
+    "loading": {
+      "analyzing": "Analyzing...",
+      "pleaseWait": "Please wait a moment"
+    },
+    "result": {
+      "title": "Analysis Result",
+      "confidence": "Confidence",
+      "description": "Description",
+      "recommendation": "Recommendation",
+      "reset": "Check again",
+      "share": "Share"
+    },
+    "history": {
+      "title": "History",
+      "empty": "No history yet",
+      "clearAll": "Clear all",
+      "delete": "Delete"
+    },
+    "imagePicker": {
+      "title": "Choose Image",
+      "camera": "Take Photo",
+      "gallery": "Gallery",
+      "cancel": "Cancel"
+    },
+    "bottomNav": {
+      "home": "Home",
+      "info": "About"
+    }
+  }
+}

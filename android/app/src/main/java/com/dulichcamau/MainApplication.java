@@ -1,4 +1,4 @@
-package com.nongnghiepcamau;
+package com.pda.appaiyte;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
