@@ -37,20 +37,20 @@ export const AnalysisResult = ({
           </View>
         </View>
 
-        <View style={styles.descriptionContainer}>
-          <Text style={styles.descriptionLabel}>{t.result.description}</Text>
-          <Text style={styles.descriptionText}>{result.description}</Text>
-        </View>
-
-        <View style={styles.recommendationsContainer}>
-          <Text style={styles.recommendationsLabel}>{t.result.recommendations}</Text>
-          {result.recommendations.map((rec, index) => (
-            <View key={index} style={styles.recommendationItem}>
-              <Icon name="check" size={18} color={AppColors.MainColor} />
-              <Text style={styles.recommendationText}>{rec}</Text>
-            </View>
-          ))}
-        </View>
+        {/* All Predictions */}
+        {result.predictions && result.predictions.length > 0 && (
+          <View style={styles.predictionsContainer}>
+            <Text style={styles.predictionsLabel}>
+              {language === 'vi' ? 'Kết quả:' : 'Other Results:'}
+            </Text>
+            {result.predictions.map((pred, index) => (
+              <View key={index} style={styles.predictionItem}>
+                <Text style={styles.predictionLabel}>{pred.label}</Text>
+                <Text style={styles.predictionConfidence}>{pred.confidence}%</Text>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
 
       <View style={styles.resultActions}>

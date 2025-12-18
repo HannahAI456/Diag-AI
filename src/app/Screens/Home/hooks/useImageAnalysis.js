@@ -1,5 +1,8 @@
 import React from 'react';
 import {Alert} from 'react-native';
+import diseaseTranslations from '../diseaseTranslations.json';
+
+const API_URL = 'http://diagai.csctech.vn/api/inference';
 
 export const useImageAnalysis = () => {
   const [analyzing, setAnalyzing] = React.useState(false);
@@ -11,52 +14,73 @@ export const useImageAnalysis = () => {
     setAnalyzing(true);
 
     try {
-      // TODO: Tích hợp API phân tích hình ảnh thật ở đây
-      // const formData = new FormData();
-      // formData.append('image', {
-      //   uri: imageData.uri,
-      //   type: imageData.type,
-      //   name: imageData.name,
-      // });
-      // formData.append('language', language);
-      // const response = await axios.post('YOUR_API_URL', formData);
+      // Prepare form data
+      const formData = new FormData();
+      formData.append('image', {
+        uri: imageData.uri,
+        type: imageData.type || 'image/jpeg',
+        name: imageData.fileName || 'image.jpg',
+      });
 
-      // Giả lập phân tích (xóa sau khi có API thật)
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Call API
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-      // Mock data theo ngôn ngữ
-      const mockResult = language === 'vi' ? {
-        diagnosis: 'Viêm da tiếp xúc',
-        confidence: 85,
-        description:
-          'Có dấu hiệu viêm da tiếp xúc nhẹ. Khuyến nghị gặp bác sĩ da liễu để được tư vấn cụ thể.',
-        recommendations: [
-          'Tránh tiếp xúc với các chất gây kích ứng',
-          'Giữ da sạch và khô ráo',
-          'Sử dụng kem dưỡng ẩm phù hợp',
-          'Gặp bác sĩ nếu triệu chứng không cải thiện',
-        ],
-      } : {
-        diagnosis: 'Contact Dermatitis',
-        confidence: 85,
-        description:
-          'Signs of mild contact dermatitis detected. It is recommended to consult a dermatologist for specific advice.',
-        recommendations: [
-          'Avoid contact with irritants',
-          'Keep skin clean and dry',
-          'Use appropriate moisturizer',
-          'See a doctor if symptoms do not improve',
-        ],
-      };
+      const data = await response.json();
+      console.log('API Response:', JSON.stringify(data, null, 2));
 
-      setAnalysisResult(mockResult);
-      
-      if (onSuccess) {
-        onSuccess(mockResult);
+      if (data.result && data.result.success && data.result.predictions) {
+        // Get top prediction
+        const topPrediction = data.result.predictions[0];
+        const topDiseaseLabel = topPrediction.label;
+        const topConfidence = Math.round(topPrediction.confidence * 100);
+
+        console.log('Top disease label:', topDiseaseLabel);
+        console.log('Language:', language);
+        console.log('Translation:', diseaseTranslations[topDiseaseLabel]);
+
+        // Get translation for top disease name
+        const topTranslatedName = diseaseTranslations[topDiseaseLabel]?.[language] || topDiseaseLabel;
+        console.log('Translated name:', topTranslatedName);
+
+        // Translate all predictions
+        const translatedPredictions = data.result.predictions.map(pred => {
+          const translated = diseaseTranslations[pred.label]?.[language] || pred.label;
+          console.log(`Translating ${pred.label} to ${translated}`);
+          return {
+            label: translated,
+            originalLabel: pred.label,
+            confidence: Math.round(pred.confidence * 100),
+          };
+        });
+
+        const result = {
+          diagnosis: topTranslatedName,
+          originalDiagnosis: topDiseaseLabel, // Store original label for re-translation
+          confidence: topConfidence,
+          predictions: translatedPredictions, // All predictions with translations
+          originalPredictions: data.result.predictions, // Store original for re-translation
+        };
+
+        setAnalysisResult(result);
+        
+        if (onSuccess) {
+          onSuccess(result);
+        }
+      } else {
+        throw new Error('Invalid API response');
       }
     } catch (error) {
       console.error('Analysis error:', error);
-      Alert.alert('Lỗi', 'Không thể phân tích hình ảnh. Vui lòng thử lại.');
+      const errorMessage = language === 'vi' 
+        ? 'Không thể phân tích hình ảnh. Vui lòng thử lại.'
+        : 'Unable to analyze image. Please try again.';
+      Alert.alert(language === 'vi' ? 'Lỗi' : 'Error', errorMessage);
     } finally {
       setAnalyzing(false);
     }

@@ -117,7 +117,19 @@ const HomeScreen = () => {
 
   // Toggle language
   const toggleLanguage = () => {
-    setLanguage(prev => (prev === 'vi' ? 'en' : 'vi'));
+    const newLanguage = language === 'vi' ? 'en' : 'vi';
+    setLanguage(newLanguage);
+
+    // Re-translate current result if exists
+    if (analysisResult && selectedImage) {
+      analyzeImage(
+        selectedImage,
+        () => {
+          // Just re-translate, don't save to history again
+        },
+        newLanguage,
+      );
+    }
   };
 
   return (
@@ -139,8 +151,8 @@ const HomeScreen = () => {
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}>
-        {/* Hero Section - Show when no image selected */}
-        {!selectedImage && !analysisResult && (
+        {/* Hero Section - Show when no image selected and no result */}
+        {!analyzing && !analysisResult && (
           <HeroSection
             onGallery={handleGallery}
             onCamera={handleCamera}

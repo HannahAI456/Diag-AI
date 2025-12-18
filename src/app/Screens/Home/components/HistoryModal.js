@@ -15,6 +15,7 @@ export const HistoryModal = ({
   language = 'vi',
 }) => {
   const {t} = useTranslation(language);
+  const diseaseTranslations = require('../diseaseTranslations.json');
 
   return (
     <Modal
@@ -61,51 +62,57 @@ export const HistoryModal = ({
             <ScrollView
               style={styles.historyList}
               showsVerticalScrollIndicator={false}>
-              {history.map(item => (
-                <TouchableOpacity
-                  key={item.id}
-                  style={styles.historyItem}
-                  onPress={() => onViewItem(item)}>
+              {history.map(item => {
+                // Re-translate diagnosis based on current language
+                const originalLabel = item.result.originalDiagnosis || item.result.diagnosis;
+                const translatedDiagnosis = diseaseTranslations[originalLabel]?.[language] || item.result.diagnosis;
+                
+                return (
                   <TouchableOpacity
-                    onPress={e => {
-                      e.stopPropagation();
-                      onImagePress(item.image.uri);
-                    }}>
-                    <Image
-                      source={{uri: item.image.uri}}
-                      style={styles.historyItemImage}
-                    />
-                  </TouchableOpacity>
-                  <View style={styles.historyItemContent}>
-                    <Text style={styles.historyItemDiagnosis}>
-                      {item.result.diagnosis}
-                    </Text>
-                    <Text style={styles.historyItemDate}>
-                      {new Date(item.timestamp).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </Text>
-                    <View style={styles.historyItemConfidence}>
-                      <Icon name="check-circle" size={14} color="#4CAF50" />
-                      <Text style={styles.historyItemConfidenceText}>
-                        {item.result.confidence}% {t.history.confidence}
+                    key={item.id}
+                    style={styles.historyItem}
+                    onPress={() => onViewItem(item)}>
+                    <TouchableOpacity
+                      onPress={e => {
+                        e.stopPropagation();
+                        onImagePress(item.image.uri);
+                      }}>
+                      <Image
+                        source={{uri: item.image.uri}}
+                        style={styles.historyItemImage}
+                      />
+                    </TouchableOpacity>
+                    <View style={styles.historyItemContent}>
+                      <Text style={styles.historyItemDiagnosis}>
+                        {translatedDiagnosis}
                       </Text>
+                      <Text style={styles.historyItemDate}>
+                        {new Date(item.timestamp).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </Text>
+                      <View style={styles.historyItemConfidence}>
+                        <Icon name="check-circle" size={14} color="#4CAF50" />
+                        <Text style={styles.historyItemConfidenceText}>
+                          {item.result.confidence}% {t.history.confidence}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                  <TouchableOpacity
-                    style={styles.deleteHistoryItemButton}
-                    onPress={e => {
-                      e.stopPropagation();
-                      onDeleteItem(item.id);
-                    }}>
-                    <Icon name="close-circle" size={24} color="#f44336" />
+                    <TouchableOpacity
+                      style={styles.deleteHistoryItemButton}
+                      onPress={e => {
+                        e.stopPropagation();
+                        onDeleteItem(item.id);
+                      }}>
+                      <Icon name="close-circle" size={24} color="#f44336" />
+                    </TouchableOpacity>
                   </TouchableOpacity>
-                </TouchableOpacity>
-              ))}
+                );
+              })}
             </ScrollView>
           )}
         </View>

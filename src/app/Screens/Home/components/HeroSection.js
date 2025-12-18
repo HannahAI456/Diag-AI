@@ -14,6 +14,9 @@ export const HeroSection = ({
   language,
 }) => {
   const {t} = useTranslation(language);
+  const diseaseTranslations = require('../diseaseTranslations.json');
+  
+  console.log('Recent Results in HeroSection:', recentResults);
   return (
     <>
       <View style={styles.heroSection}>
@@ -57,26 +60,32 @@ export const HeroSection = ({
             )}
           </View>
 
-          {recentResults.slice(0, 3).map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.latestResultCard}
-              onPress={() => onViewResult(item)}>
-              <Image
-                source={{uri: item.image.uri}}
-                style={styles.latestResultImage}
-              />
-              <View style={styles.latestResultInfo}>
-                <Text style={styles.latestResultLabel}>
-                  {item.result.label}
-                </Text>
-                <Text style={styles.latestResultConfidence}>
-                  {t.hero.confidence} {Math.round(item.result.confidence)}%
-                </Text>
-              </View>
-              <Icon name="chevron-right" size={24} color="#999" />
-            </TouchableOpacity>
-          ))}
+          {recentResults.slice(0, 3).map((item, index) => {
+            // Re-translate diagnosis based on current language
+            const originalLabel = item.result.originalDiagnosis || item.result.diagnosis;
+            const translatedDiagnosis = diseaseTranslations[originalLabel]?.[language] || item.result.diagnosis;
+            
+            return (
+              <TouchableOpacity
+                key={index}
+                style={styles.latestResultCard}
+                onPress={() => onViewResult(item)}>
+                <Image
+                  source={{uri: item.image.uri}}
+                  style={styles.latestResultImage}
+                />
+                <View style={styles.latestResultInfo}>
+                  <Text style={styles.latestResultLabel}>
+                    {translatedDiagnosis}
+                  </Text>
+                  <Text style={styles.latestResultConfidence}>
+                    {t.hero.confidence}: {item.result.confidence}%
+                  </Text>
+                </View>
+                <Icon name="chevron-right" size={24} color="#999" />
+              </TouchableOpacity>
+            );
+          })}
         </View>
       )}
     </>

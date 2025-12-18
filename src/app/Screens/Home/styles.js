@@ -142,6 +142,7 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     width: 120,
     height: 120,
+    // transform: [{rotate: '-50deg'},],
   },
   heartIcon: {
     position: 'absolute',
@@ -520,29 +521,41 @@ export const styles = StyleSheet.create({
     lineHeight: 22,
   },
 
-  // ===== RECOMMENDATIONS CONTAINER =====
-  recommendationsContainer: {
-    backgroundColor: '#FFF3E0',
+  // ===== PREDICTIONS CONTAINER =====
+  predictionsContainer: {
+    backgroundColor: '#F5F5F5',
     borderRadius: 10,
     padding: 14,
   },
-  recommendationsLabel: {
+  predictionsLabel: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#E65100',
-    marginBottom: 10,
+    color: '#333',
+    marginBottom: 12,
   },
-  recommendationItem: {
+  predictionItem: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    backgroundColor: '#fff',
+    borderRadius: 8,
     marginBottom: 8,
-    gap: 8,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
   },
-  recommendationText: {
+  predictionLabel: {
     flex: 1,
-    fontSize: 13,
-    color: '#666',
-    lineHeight: 20,
+    fontSize: 14,
+    color: '#333',
+    fontWeight: '500',
+  },
+  predictionConfidence: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#1565C0',
+    marginLeft: 12,
   },
 
   // ===== RESULT ACTIONS =====
