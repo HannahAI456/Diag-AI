@@ -46,13 +46,18 @@ export const styles = StyleSheet.create({
   languageSelector: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    marginLeft: 12,
+    gap: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: '#E3F2FD',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#90CAF9',
   },
   languageText: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
-    color: '#333',
+    color: '#1565C0',
   },
   toggleSwitch: {
     width: 48,
@@ -579,6 +584,65 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     color: '#E65100',
     lineHeight: 20,
+  },
+
+  // ===== LANGUAGE MODAL =====
+  languageModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-start',
+    paddingTop: 60,
+    paddingLeft: 16,
+  },
+  languageModalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    width: 200,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    marginTop: 60,
+  },
+  languageModalHeader: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  languageModalTitle: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#666',
+    textAlign: 'center',
+  },
+  languageOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    gap: 12,
+    // marginVertical: 5,
+    borderRadius: 10,
+    // borderBottomWidth: 1,
+    // borderBottomColor: '#f5f5f5',
+  },
+  languageOptionActive: {
+    backgroundColor: '#E3F2FD',
+  },
+  languageFlag: {
+    fontSize: 24,
+  },
+  languageName: {
+    flex: 1,
+    fontSize: 15,
+    color: '#333',
+    fontWeight: '500',
+  },
+  languageNameActive: {
+    color: '#1565C0',
+    fontWeight: '600',
   },
 
   // ===== IMAGE PICKER MODAL =====

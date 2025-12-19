@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from '../styles';
 import {AppColors} from '../../../Common/AppColor';
 import {useTranslation} from '../hooks/useTranslation';
+import {LanguageModal} from './LanguageModal';
 
 export const HomeHeader = ({
   historyCount,
@@ -13,17 +14,25 @@ export const HomeHeader = ({
   onLanguagePress,
 }) => {
   const {t} = useTranslation(language);
+  const [showLanguageModal, setShowLanguageModal] = React.useState(false);
   
   return (
+    <>
+      <LanguageModal
+        visible={showLanguageModal}
+        onClose={() => setShowLanguageModal(false)}
+        currentLanguage={language}
+        onSelectLanguage={onLanguagePress}
+      />
     <View style={styles.headerContainer}>
       <View style={styles.headerLeft}>
         <TouchableOpacity
           style={styles.languageSelector}
-          onPress={onLanguagePress}>
+          onPress={() => setShowLanguageModal(true)}>
           <Text style={styles.languageText}>
-            {t.header.language}
+            {language === 'vi' ? '🇻🇳 Tiếng Việt' : '🇬🇧 English'}
           </Text>
-          <Icon name="chevron-down" size={16} color="#333" />
+          <Icon name="chevron-down" size={16} color="#666" />
         </TouchableOpacity>
       </View>
       <View style={styles.headerRight}>
@@ -44,5 +53,6 @@ export const HomeHeader = ({
         </TouchableOpacity>
       </View>
     </View>
+    </>
   );
 };

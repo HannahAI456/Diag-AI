@@ -1,14 +1,14 @@
 {
   "Basal cell carcinoma": {
-    "vi": "Ung thư biểu mô tế bào đáy",
+    "vi": "Bệnh ung thư biểu mô tế bào đáy",
     "en": "Basal cell carcinoma"
   },
   "Chickenpox": {
-    "vi": "Thủy đậu",
+    "vi": "Bệnh thủy đậu",
     "en": "Chickenpox"
   },
   "Cowpox": {
-    "vi": "Đậu bò",
+    "vi": "Bệnh đậu bò",
     "en": "Cowpox"
   },
   "Healthy": {
@@ -16,19 +16,23 @@
     "en": "Healthy"
   },
   "HFMD": {
-    "vi": "Tay chân miệng",
+    "vi": "Bệnh tay chân miệng",
     "en": "Hand, Foot and Mouth Disease"
   },
   "Measles": {
-    "vi": "Sởi",
+    "vi": "Bệnh sởi",
     "en": "Measles"
   },
   "Melanoma": {
-    "vi": "Ung thư hắc tố",
+    "vi": "Bệnh ung thư hắc tố",
     "en": "Melanoma"
   },
   "Monkeypox": {
-    "vi": "Đậu mùa khỉ",
+    "vi": "Bệnh đậu mùa khỉ",
     "en": "Monkeypox"
+  },
+  "Not HFMD": {
+    "vi": "Bệnh da liễu ngoài tay chân miệng",
+    "en": "Other dermatological diseases besides hand, foot, and mouth disease."
   }
 }

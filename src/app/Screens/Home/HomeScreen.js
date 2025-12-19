@@ -115,11 +115,10 @@ const HomeScreen = () => {
     setShowHistoryModal(false);
   };
 
-  // Toggle language
-  const toggleLanguage = () => {
-    const newLanguage = language === 'vi' ? 'en' : 'vi';
+  // Change language
+  const changeLanguage = (newLanguage) => {
     setLanguage(newLanguage);
-
+    
     // Re-translate current result if exists
     if (analysisResult && selectedImage) {
       analyzeImage(
@@ -130,9 +129,7 @@ const HomeScreen = () => {
         newLanguage,
       );
     }
-  };
-
-  return (
+  };  return (
     <SafeAreaView style={styles.container} edges={['']}>
       <View
         style={{height: useSafeAreaInsets().top, backgroundColor: '#fff'}}
@@ -144,7 +141,7 @@ const HomeScreen = () => {
         onHistoryPress={() => setShowHistoryModal(true)}
         onNotificationPress={() => RootNavigation.navigate('Notification')}
         language={language}
-        onLanguagePress={toggleLanguage}
+        onLanguagePress={changeLanguage}
       />
 
       <ScrollView
