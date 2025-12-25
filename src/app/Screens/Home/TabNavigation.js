@@ -20,6 +20,7 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(1)).current;
   const translateYValue = useRef(new Animated.Value(0)).current;
+  const shadowAnimValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (focused) {
@@ -27,17 +28,22 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
         Animated.spring(animatedValue, {
           toValue: 1,
           friction: 5,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
         Animated.spring(scaleValue, {
           toValue: 1.05,
           friction: 5,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
         Animated.spring(translateYValue, {
           toValue: -5,
           friction: 5,
-          useNativeDriver: true,
+          useNativeDriver: false,
+        }),
+        Animated.timing(shadowAnimValue, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: false,
         }),
       ]).start();
     } else {
@@ -45,17 +51,22 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
         Animated.timing(animatedValue, {
           toValue: 0,
           duration: 150,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
         Animated.timing(scaleValue, {
           toValue: 1,
           duration: 150,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
         Animated.timing(translateYValue, {
           toValue: 0,
           duration: 150,
-          useNativeDriver: true,
+          useNativeDriver: false,
+        }),
+        Animated.timing(shadowAnimValue, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: false,
         }),
       ]).start();
     }
@@ -63,7 +74,22 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['transparent', 'rgba(102, 126, 234, 0.1)'],
+    outputRange: ['rgba(192, 215, 205, 0.14)', 'rgba(75, 199, 137, 0.14)'],
+  });
+
+  const shadowOpacity = shadowAnimValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 0.15],
+  });
+
+  const shadowRadius = shadowAnimValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 6],
+  });
+
+  const elevation = shadowAnimValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 4],
   });
 
   return (
@@ -73,6 +99,9 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
         {
           backgroundColor,
           transform: [{translateY: translateYValue}, {scale: scaleValue}],
+          shadowOpacity,
+          shadowRadius,
+          elevation,
         },
       ]}>
       {image ? (
@@ -89,11 +118,13 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
             />
           </LinearGradient>
         ) : (
-          <Image
-            source={{uri: Global.AssetLinkUrl + image}}
-            style={styles.tabImageInactive}
-            resizeMode="contain"
-          />
+          <View style={styles.iconInactiveContainer}>
+            <Image
+              source={{uri: Global.AssetLinkUrl + image}}
+              style={styles.tabImageInactive}
+              resizeMode="contain"
+            />
+          </View>
         )
       ) : focused ? (
         <LinearGradient
@@ -104,7 +135,9 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
           <Icon name={icon} size={18} color="#fff" />
         </LinearGradient>
       ) : (
-        <Icon name={icon} size={20} color="#95a5a6" />
+        <View style={styles.iconInactiveContainer}>
+          <Icon name={icon} size={18} color={styles.iconInactiveColor.color} />
+        </View>
       )}
       {focused ? (
         <Animated.Text style={[styles.tabLabel, {opacity: animatedValue}]}>
@@ -198,12 +231,27 @@ export default function TabNavigation() {
         }}
       />
       <Tab.Screen
+        name="Đóng góp"
+        component={HomeScreen}
+        initialParams={{data: {DongGop: true}}}
+        options={{
+          tabBarLabel: 'Đóng góp',
+          tabBarIcon: ({focused}) => (
+            <AnimatedTabIcon
+              focused={focused}
+              icon={'heart'}
+              label={'Đóng góp'}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
-          tabBarLabel: 'Giới thiệu',
+          tabBarLabel: 'Thông tin',
           tabBarIcon: ({focused}) => (
-            <AnimatedTabIcon focused={focused} icon="info" label="Giới thiệu" />
+            <AnimatedTabIcon focused={focused} icon="info" label="Thông tin" />
           ),
         }}
       />
@@ -235,7 +283,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: 50, // Giảm chiều cao
+    height: 50,
   },
   tabButton: {
     flex: 1,
@@ -245,10 +293,12 @@ const styles = StyleSheet.create({
   tabIconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 12,
     minWidth: 50,
+    shadowColor: '#31a86f',
+    shadowOffset: {width: 0, height: 2},
   },
   iconGradientContainer: {
     width: 30,
@@ -263,7 +313,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   tabLabel: {
-    fontSize: 10, // Giảm kích thước chữ
+    fontSize: 10,
     fontWeight: '600',
     marginTop: 3,
     color: '#31a86f',
@@ -272,7 +322,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '500',
     marginTop: 3,
-    color: '#95a5a6',
+    color: 'rgba(33, 111, 103, 0.55)',
+    letterSpacing: 0.2,
   },
   activeDot: {
     position: 'absolute',
@@ -291,5 +342,18 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     tintColor: '#95a5a6',
+  },
+  iconInactiveContainer: {
+    width: 30,
+    height: 30,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(182, 215, 199, 0.08)',
+    // borderWidth: 1,
+    // borderColor: 'rgba(49, 168, 111, 0.18)',
+  },
+  iconInactiveColor: {
+    color: 'rgba(33, 111, 103, 0.65)',
   },
 });

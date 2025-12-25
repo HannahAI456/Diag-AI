@@ -10,6 +10,7 @@ import {
   ScrollView,
   StatusBar,
   Platform,
+  Image,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {RootNavigation} from '../../Common/RootNavigation';
@@ -29,251 +30,62 @@ import {postJson} from '../../Api/Api';
 import Geolocation from '@react-native-community/geolocation';
 
 export default function ProfileScreen() {
-  const STORAGE_KEY = '@fishing_alert_subscriber';
-  const [dataTBTauCa, setDataTBTauCa] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [loggingOut, setLoggingOut] = useState(false);
-
-  // Recoil states
-  const [auth, setAuth] = useRecoilState(authState);
-  const [menu, setMenu] = useRecoilState(menuState);
-
-  const loadData = async () => {
-    try {
-      const raw = await AsyncStorage.getItem(STORAGE_KEY);
-      setDataTBTauCa(raw ? JSON.parse(raw) : null);
-    } catch (e) {
-      setDataTBTauCa(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [appVersion, setAppVersion] = useState('');
 
   useEffect(() => {
-    loadData();
+    setAppVersion(DeviceInfo.getVersion());
   }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      loadData();
-    }, []),
-  );
-
-  const isSubscribed = !!dataTBTauCa?.DKTB;
-
-  // Hàm đăng xuất
-  const handleLogout = async () => {
-    Alert.alert(
-      'Xác nhận đăng xuất',
-      'Bạn có chắc chắn muốn đăng xuất?',
-      [
-        {
-          text: 'Hủy',
-          style: 'cancel',
-        },
-        {
-          text: 'Đăng xuất',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              setLoggingOut(true);
-
-              // Lấy vị trí hiện tại
-              const getCurrentLocation = () => {
-                return new Promise(resolve => {
-                  Geolocation.getCurrentPosition(
-                    position => {
-                      resolve({
-                        longitude: position.coords.longitude,
-                        latitude: position.coords.latitude,
-                      });
-                    },
-                    error => {
-                      console.log('Error getting location:', error);
-                      resolve({longitude: 0, latitude: 0});
-                    },
-                    {
-                      enableHighAccuracy: false,
-                      timeout: 5000,
-                      maximumAge: 10000,
-                    },
-                  );
-                });
-              };
-
-              const location = await getCurrentLocation();
-
-              // Gọi API đăng xuất
-              const deviceInfo = {
-                deviceId: Global.DeviceID || (await DeviceInfo.getUniqueId()),
-                version: DeviceInfo.getVersion(),
-                model: DeviceInfo.getModel(),
-                platform: Platform.OS,
-                deviceName:
-                  Global.tenThietBi || (await DeviceInfo.getDeviceName()),
-                token: Global.tokenFirebase || '',
-                userName: auth.user?.unique_name || 'guest',
-                longitude: location.longitude,
-                latitude: location.latitude,
-              };
-
-              try {
-                await postJson('/api/app/mobile-device', deviceInfo);
-                console.log('Đã gửi thông tin đăng xuất lên server');
-              } catch (error) {
-                console.log('Lỗi khi gửi thông tin đăng xuất:', error);
-              }
-
-              // Xóa thông tin đăng nhập đã lưu
-              await clearAuthFromStorage();
-
-              // Đăng nhập lại bằng tài khoản guest
-              const guestResult = await guestLogin('guest', '1q2w3E*');
-
-              if (guestResult.success) {
-                // Lấy menu mới
-                const newMenu = await getMenu();
-                Global.userInfo = null;
-                // Reset Recoil state về guest
-                setAuth({
-                  isLoggedIn: false,
-                  user: null,
-                  accessToken: null,
-                });
-                setMenu(newMenu || []);
-
-                showToast(
-                  'success',
-                  'Đăng xuất thành công',
-                  'Đã chuyển về tài khoản guest',
-                );
-
-                // Quay về màn hình Home
-                RootNavigation.navigate('Home');
-              } else {
-                throw new Error('Không thể đăng nhập tài khoản guest');
-              }
-            } catch (error) {
-              console.error('Logout error:', error);
-              showToast('error', 'Lỗi', 'Đã có lỗi xảy ra khi đăng xuất');
-            } finally {
-              setLoggingOut(false);
-            }
-          },
-        },
-      ],
-      {cancelable: true},
-    );
-  };
-
-  if (loading) {
-    return (
-      <SafeAreaView style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0984e3" />
-      </SafeAreaView>
-    );
-  }
 
   return (
     <View style={[styles.safeArea]}>
-      <TopNavigation title="Thông tin cá nhân" navigation={RootNavigation} />
+      <TopNavigation title="Thông tin" navigation={RootNavigation} />
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}>
-        {/* User Info Card - Nếu đã đăng nhập */}
-        {auth.isLoggedIn && (
-          <TouchableOpacity activeOpacity={0.7} style={styles.userInfoCard}>
-            <View style={styles.userInfoLeft}>
-              <View style={styles.avatarCircle}>
-                <Ionicons name="person" size={32} color="#0984e3" />
-              </View>
-              <View style={styles.userTextContainer}>
-                <Text style={styles.userName}>
-                  {auth.user?.unique_name || 'Người dùng'}
+        {/* App Info Card */}
+        <View style={styles.appInfoCard}>
+          <View style={styles.appIconContainer}>
+            <Image
+              style={{height: 60, width: 60}}
+              source={require('../../../asset/Icons/main.png')}
+            />
+          </View>
+
+          <Text style={styles.appTitle}>Ứng dụng Diag AI</Text>
+          <Text style={styles.appDescription}>
+            Hỗ trợ chuẩn đoán bệnh tay chân miệng{'\n'}trên trẻ em
+          </Text>
+
+          <View style={styles.versionContainer}>
+            <MaterialIcons name="info-outline" size={16} color="#666" />
+            <Text style={styles.versionText}>Phiên bản: {appVersion}</Text>
+          </View>
+        </View>
+
+        {/* Authors Section */}
+        <View style={styles.authorsSection}>
+          <Text style={styles.sectionTitle}>TÁC GIẢ</Text>
+
+          <View style={styles.authorCard}>
+            <View style={styles.authorItem}>
+              <View style={styles.authorInfo}>
+                <Text style={styles.authorName}>Trần Lê Bảo Hân</Text>
+                <Text style={styles.authorSchool}>
+                  Trường Phổ thông Năng khiếu, ĐHQG-HCM
                 </Text>
-                {auth.user?.email && (
-                  <Text style={styles.userEmail}>{auth.user.email}</Text>
-                )}
               </View>
             </View>
-            <View style={styles.verifiedBadge}>
-              <Ionicons
-                name="arrow-forward-circle-sharp"
-                size={24}
-                color="#27ae60"
-              />
-            </View>
-          </TouchableOpacity>
-        )}
 
-        {/* Subscription Status Card */}
-        {isSubscribed && (
-          <View style={styles.statusCard}>
-            <View style={styles.statusHeader}>
-              <Ionicons name="notifications" size={20} color="#0984e3" />
-              <Text style={styles.statusTitle}>Thông báo tàu cá</Text>
-            </View>
+            <View style={styles.divider} />
 
-            <View style={[styles.statusBadge, styles.activeBadge]}>
-              <Ionicons name="checkmark-circle" size={18} color="#27ae60" />
-              <Text style={[styles.statusText, styles.activeText]}>
-                Đã đăng ký
-              </Text>
-            </View>
-          </View>
-        )}
-
-        {/* Menu Section */}
-        <View style={styles.menuSection}>
-          <Text style={styles.sectionTitle}>CÀI ĐẶT</Text>
-          <View style={styles.menuCard}>
-            <TouchableOpacity
-              style={styles.menuItem}
-              // onPress={() => RootNavigation.navigate('ThongTinUngDung')}
-              activeOpacity={0.7}>
-              <View style={styles.menuItemLeft}>
-                <View style={styles.iconContainer}>
-                  <Ionicons
-                    name="information-circle-outline"
-                    size={20}
-                    color="#0984e3"
-                  />
-                </View>
-                <View style={styles.menuTextContainer}>
-                  <Text style={styles.menuItemTitle}>Thông tin ứng dụng</Text>
-                  <Text style={styles.menuItemSubtitle}>
-                    Phiên bản {DeviceInfo.getVersion()}
-                  </Text>
-                </View>
+            <View style={styles.authorItem}>
+              <View style={styles.authorInfo}>
+                <Text style={styles.authorName}>Nguyễn Minh Quân</Text>
+                <Text style={styles.authorSchool}>
+                  Trường Phổ thông Năng khiếu, ĐHQG-HCM
+                </Text>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#bdc3c7" />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.actionButtonContainer}>
-            {auth.isLoggedIn ? (
-              <TouchableOpacity
-                style={styles.logoutButton}
-                onPress={handleLogout}
-                disabled={loggingOut}
-                activeOpacity={0.8}>
-                {loggingOut ? (
-                  <ActivityIndicator color="#fff" size="small" />
-                ) : (
-                  <>
-                    <Ionicons name="log-out-outline" size={22} color="#fff" />
-                    <Text style={styles.logoutButtonText}>Đăng xuất</Text>
-                  </>
-                )}
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                style={styles.loginButton}
-                onPress={() => RootNavigation.navigate('LoginScreen')}
-                activeOpacity={0.8}>
-                <Ionicons name="log-in-outline" size={22} color="#fff" />
-                <Text style={styles.loginButtonText}>Đăng nhập</Text>
-              </TouchableOpacity>
-            )}
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -286,110 +98,55 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8f9fa',
   },
-  loadingContainer: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   scrollView: {
     flex: 1,
   },
-  userInfoCard: {
+  appInfoCard: {
     backgroundColor: '#fff',
     marginHorizontal: 20,
     marginTop: 20,
     borderRadius: 16,
-    padding: 16,
-    flexDirection: 'row',
+    padding: 24,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    // elevation: 2,
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 1},
-    // shadowOpacity: 0.08,
-    // shadowRadius: 4,
   },
-  userInfoLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  avatarCircle: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#e3f2fd',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#0984e3',
-  },
-  userTextContainer: {
-    marginLeft: 12,
-    flex: 1,
-  },
-  userName: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: '#2c3e50',
-    marginBottom: 2,
-  },
-  userEmail: {
-    fontSize: 13,
-    color: '#7f8c8d',
-  },
-  verifiedBadge: {
-    backgroundColor: '#d5f4e6',
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  statusCard: {
-    backgroundColor: '#fff',
-    marginHorizontal: 20,
-    marginTop: 12,
-    borderRadius: 16,
-    padding: 20,
-    // elevation: 2,
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 1},
-    // shadowOpacity: 0.08,
-    // shadowRadius: 4,
-  },
-  statusHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  statusTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#2c3e50',
-    marginLeft: 10,
-  },
-  statusBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+  appIconContainer: {
+    width: 80,
+    height: 80,
     borderRadius: 20,
-    alignSelf: 'flex-start',
+    backgroundColor: '#E3F2FD',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
   },
-  activeBadge: {
-    backgroundColor: '#d5f4e6',
+  appTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#1565C0',
+    marginBottom: 8,
+    textAlign: 'center',
   },
-  statusText: {
-    fontSize: 14,
-    fontWeight: '600',
+  appDescription: {
+    fontSize: 15,
+    color: '#666',
+    textAlign: 'center',
+    lineHeight: 22,
+    marginBottom: 16,
+  },
+  versionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  versionText: {
+    fontSize: 13,
+    color: '#666',
     marginLeft: 6,
+    fontWeight: '500',
   },
-  activeText: {
-    color: '#27ae60',
-  },
-  menuSection: {
+  authorsSection: {
     marginTop: 24,
     paddingHorizontal: 20,
     paddingBottom: 30,
@@ -401,75 +158,48 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     marginBottom: 12,
   },
-  menuCard: {
+  authorCard: {
     backgroundColor: '#fff',
     borderRadius: 16,
     overflow: 'hidden',
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
   },
-  menuItem: {
+  authorItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     padding: 16,
   },
-  menuItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    backgroundColor: '#e3f2fd',
+  authorIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: '#E3F2FD',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
   },
-  iconActive: {
-    backgroundColor: '#d5f4e6',
-  },
-  iconDefault: {
-    backgroundColor: '#e3f2fd',
-  },
-  menuTextContainer: {
+  authorInfo: {
     flex: 1,
   },
-  menuItemTitle: {
-    fontSize: 15,
+  authorName: {
+    fontSize: 16,
     fontWeight: '600',
     color: '#2c3e50',
-    marginBottom: 2,
+    marginBottom: 4,
   },
-  menuItemSubtitle: {
+  authorSchool: {
     fontSize: 13,
-    color: '#95a5a6',
+    color: '#666',
+    lineHeight: 18,
   },
   divider: {
     height: 1,
     backgroundColor: '#ecf0f1',
-    marginLeft: 68,
-  },
-  actionButtonContainer: {
-    marginTop: 30,
-  },
-  loginButton: {
-    backgroundColor: '#27ae60',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 14,
-    borderRadius: 12,
-    elevation: 2,
-    shadowColor: '#27ae60',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    marginLeft: 76,
   },
   loginButtonText: {
     color: '#fff',

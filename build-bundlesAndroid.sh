@@ -3,9 +3,9 @@
 set -e
 
 # === CONFIG ===
-ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1NzgyMjY0LCJleHAiOjE3NjgzNzQyNjR9.OZoYdB-a083GYiXR4WljeIN1I0uEMAAx4BEjw6RfCR4"
+ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY2NDUzOTUyLCJleHAiOjE3NjkwNDU5NTJ9.DVhSc4ySSvdb0vwbr_eylrguzIyVu8JwFi1APgdZcTg"
 UPLOAD_URL="https://ota-update.csctech.vn/upload"
-PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::android.android/inw51w8cifpnom4zjswap247/actions/publish"
+PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::android.android/uge6c68atudz2hdh9ibpsi9h/actions/publish"
 NOTE="Diag AI"
 
 # === PROMPT VERSION ===

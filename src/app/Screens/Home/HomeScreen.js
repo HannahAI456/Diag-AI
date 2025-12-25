@@ -25,7 +25,9 @@ import {ImagePickerModal} from './components/ImagePickerModal';
 import {HistoryModal} from './components/HistoryModal';
 import {BottomNavigation} from './components/BottomNavigation';
 
-const HomeScreen = () => {
+const HomeScreen = ({route}) => {
+  const {DongGop} = route?.params?.data || {DongGop: false};
+  console.log('DongGop param:', DongGop);
   const [selectedImage, setSelectedImage] = React.useState(null);
   const [showImagePickerModal, setShowImagePickerModal] = React.useState(false);
   const [showHistoryModal, setShowHistoryModal] = React.useState(false);
@@ -99,7 +101,19 @@ const HomeScreen = () => {
   const handleReset = () => {
     setSelectedImage(null);
     resetAnalysis();
-    setShowImagePickerModal(true);
+    // setShowImagePickerModal(true);
+  };
+
+  // Handle feedback
+  const handleFeedback = async (isAccurate, correctionId) => {
+    // Save feedback to storage or send to server
+    console.log('Feedback received:', {
+      isAccurate,
+      correctionId,
+      diagnosis: analysisResult?.diagnosis,
+      timestamp: new Date().toISOString(),
+    });
+    // TODO: Implement saving feedback to AsyncStorage or API
   };
 
   // View history item
@@ -116,9 +130,9 @@ const HomeScreen = () => {
   };
 
   // Change language
-  const changeLanguage = (newLanguage) => {
+  const changeLanguage = newLanguage => {
     setLanguage(newLanguage);
-    
+
     // Re-translate current result if exists
     if (analysisResult && selectedImage) {
       analyzeImage(
@@ -129,7 +143,8 @@ const HomeScreen = () => {
         newLanguage,
       );
     }
-  };  return (
+  };
+  return (
     <SafeAreaView style={styles.container} edges={['']}>
       <View
         style={{height: useSafeAreaInsets().top, backgroundColor: '#fff'}}
@@ -164,13 +179,15 @@ const HomeScreen = () => {
         {analyzing && <AnalysisLoading language={language} />}
 
         {/* Analysis Result */}
-        {analysisResult && (
+        {analysisResult && selectedImage && (
           <AnalysisResult
             imageUri={selectedImage.uri}
             result={analysisResult}
             onReset={handleReset}
             onShare={() => {}}
             onImagePress={() => openImageViewer(selectedImage.uri)}
+            onFeedback={handleFeedback}
+            showFeedback={DongGop === true}
             language={language}
           />
         )}

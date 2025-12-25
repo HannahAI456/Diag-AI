@@ -15,6 +15,7 @@ import FastImage from 'react-native-fast-image';
 
 const PLACEHOLDER_IMG = require('./src/asset/Image/img1.jpg');
 Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.maxFontSizeMultiplier = 1.2;
 Text.defaultProps.style = [Text.defaultProps.style, {color: '#191919'}];
 TextInput.defaultProps = TextInput.defaultProps || {};
 TextInput.defaultProps.style = [
