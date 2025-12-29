@@ -1,4 +1,4 @@
-package com.pda.appaiyte;
+package com.diagai;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

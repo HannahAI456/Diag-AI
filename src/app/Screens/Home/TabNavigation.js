@@ -17,6 +17,7 @@ import HomeScreen from './HomeScreen';
 import Global from '../../LocalData/Global';
 
 const AnimatedTabIcon = ({focused, icon, label, image}) => {
+  const isAndroid = Platform.OS === 'android';
   const animatedValue = useRef(new Animated.Value(0)).current;
   const scaleValue = useRef(new Animated.Value(1)).current;
   const translateYValue = useRef(new Animated.Value(0)).current;
@@ -99,9 +100,9 @@ const AnimatedTabIcon = ({focused, icon, label, image}) => {
         {
           backgroundColor,
           transform: [{translateY: translateYValue}, {scale: scaleValue}],
-          shadowOpacity,
-          shadowRadius,
-          elevation,
+          ...(isAndroid
+            ? {shadowOpacity: 0, shadowRadius: 0, elevation: 0}
+            : {shadowOpacity, shadowRadius, elevation}),
         },
       ]}>
       {image ? (
@@ -265,11 +266,20 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: -2},
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 8,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: -2},
+        shadowOpacity: 0.08,
+        shadowRadius: 6,
+      },
+      android: {
+        shadowColor: 'transparent',
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        elevation: 0,
+      },
+    }),
   },
   tabBarGradient: {
     borderTopLeftRadius: 15,
@@ -297,8 +307,18 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 12,
     minWidth: 50,
-    shadowColor: '#31a86f',
-    shadowOffset: {width: 0, height: 2},
+    ...Platform.select({
+      ios: {
+        shadowColor: '#31a86f',
+        shadowOffset: {width: 0, height: 2},
+      },
+      android: {
+        shadowColor: 'transparent',
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        elevation: 0,
+      },
+    }),
   },
   iconGradientContainer: {
     width: 30,
@@ -306,11 +326,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#31a86f',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#31a86f',
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+      },
+      android: {
+        shadowColor: 'transparent',
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        elevation: 0,
+      },
+    }),
   },
   tabLabel: {
     fontSize: 10,

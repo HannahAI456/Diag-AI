@@ -1,4 +1,4 @@
-package com.pda.appaiyte;
+package com.diagai;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
