@@ -33,6 +33,30 @@
   },
   "Not HFMD": {
     "vi": "Bệnh da liễu ngoài tay chân miệng",
-    "en": "Other dermatological diseases besides hand, foot, and mouth disease."
+    "en": "Other dermatological diseases besides hand, foot, and mouth disease"
+  },
+  "Healthy_foot": {
+    "vi": "Chân khỏe mạnh",
+    "en": "Healthy foot"
+  },
+  "Healthy_hands": {
+    "vi": "Tay khỏe mạnh",
+    "en": "Healthy hands"
+  },
+  "Healthy_mouth": {
+    "vi": "Miệng khỏe mạnh",
+    "en": "Healthy mouth"
+  },
+  "HFMD_foot": {
+    "vi": "Chân có bệnh tay chân miệng",
+    "en": "Foot with hand, foot and mouth disease"
+  },
+  "HFMD_hands": {
+    "vi": "Tay có bệnh tay chân miệng",
+    "en": "Hands with hand, foot and mouth disease"
+  },
+  "HFMD_mouth": {
+    "vi": "Miệng có bệnh tay chân miệng",
+    "en": "Mouth with hand, foot and mouth disease"
   }
 }

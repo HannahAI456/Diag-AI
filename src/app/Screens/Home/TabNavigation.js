@@ -15,6 +15,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import ProfileScreen from './ProfileScreen';
 import HomeScreen from './HomeScreen';
 import Global from '../../LocalData/Global';
+// import DemoScreen from './Demo';
+import DemoScreen from '../DemoScreen/DemoScreen';
 
 const AnimatedTabIcon = ({focused, icon, label, image}) => {
   const isAndroid = Platform.OS === 'android';
@@ -256,6 +258,16 @@ export default function TabNavigation() {
           ),
         }}
       />
+      {/* <Tab.Screen
+        name="Demo"
+        component={DemoScreen}
+        options={{
+          tabBarLabel: 'Thông tin',
+          tabBarIcon: ({focused}) => (
+            <AnimatedTabIcon focused={focused} icon="info" label="Thông tin" />
+          ),
+        }}
+      /> */}
     </Tab.Navigator>
   );
 }

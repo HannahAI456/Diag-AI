@@ -15,6 +15,7 @@ import NotificationScreen from './Screens/Home/NotificationScreen';
 import ProfileScreen from './Screens/Home/ProfileScreen';
 import LoginScreen from './Screens/Login/LoginScreen';
 import WebViewDungChung from './Screens/WebViewDungChung/WebViewDungChung';
+import DemoScreen from './Screens/Home/Demo';
 
 const AppContainer = () => {
   const [visible, setVisible] = React.useState(false);
@@ -55,6 +56,11 @@ const AppContainer = () => {
         <MainStack.Screen
           name="WebviewDungChung"
           component={WebViewDungChung}
+          options={{headerShown: false}}
+        />
+        <MainStack.Screen
+          name="DemoScreen"
+          component={DemoScreen}
           options={{headerShown: false}}
         />
       </MainStack.Navigator>
