@@ -3,7 +3,7 @@
 set -e
 
 # === CONFIG ===
-ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY2NDUzOTUyLCJleHAiOjE3NjkwNDU5NTJ9.DVhSc4ySSvdb0vwbr_eylrguzIyVu8JwFi1APgdZcTg"
+ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzc2MTc4Mjk5LCJleHAiOjE3Nzg3NzAyOTl9.HNf2EejfG-r-9JrsIGwu5-CrWk2hROiyYbsDf8jOVco"
 UPLOAD_URL="https://ota-update.csctech.vn/upload"
 PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::android.android/uge6c68atudz2hdh9ibpsi9h/actions/publish"
 NOTE="Diag AI"

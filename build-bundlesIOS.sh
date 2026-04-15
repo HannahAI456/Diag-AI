@@ -3,7 +3,7 @@
 set -e
 
 # === CONFIG ===
-ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY2NDUzOTUyLCJleHAiOjE3NjkwNDU5NTJ9.DVhSc4ySSvdb0vwbr_eylrguzIyVu8JwFi1APgdZcTg"
+ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzc2MTc4MTA4LCJleHAiOjE3Nzg3NzAxMDh9.r-YKQgsxOAhOlFdskUMYy_M7oemhZUzZ0ppqTSHX5Pw"
 UPLOAD_URL="https://ota-update.csctech.vn/upload"
 PUBLISH_URL="https://ota-update.csctech.vn/content-manager/collection-types/api::ios-ipad.ios-ipad/ylp20xhyls967zu5im0oegbk/actions/publish"
 NOTE="Diag AI"

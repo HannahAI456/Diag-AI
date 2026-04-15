@@ -80,7 +80,7 @@ export default function ProfileScreen() {
 
             <View style={styles.authorItem}>
               <View style={styles.authorInfo}>
-                <Text style={styles.authorName}>Nguyễn Minh Quân</Text>
+                <Text style={styles.authorName}>Cao Đặng Minh Thư</Text>
                 <Text style={styles.authorSchool}>
                   Trường Phổ thông Năng khiếu, ĐHQG-HCM
                 </Text>
