@@ -1,0 +1,66 @@
+{
+  "Basal cell carcinoma": {
+    "vi": "Bệnh ung thư biểu mô tế bào đáy",
+    "en": "Basal cell carcinoma"
+  },
+  "Chickenpox": {
+    "vi": "Bệnh thủy đậu",
+    "en": "Chickenpox"
+  },
+  "Cowpox": {
+    "vi": "Bệnh đậu bò",
+    "en": "Cowpox"
+  },
+  "Healthy": {
+    "vi": "Khỏe mạnh",
+    "en": "Healthy"
+  },
+  "HFMD": {
+    "vi": "Bệnh tay chân miệng",
+    "en": "Hand, Foot and Mouth Disease"
+  },
+  "Measles": {
+    "vi": "Bệnh sởi",
+    "en": "Measles"
+  },
+  "Melanoma": {
+    "vi": "Bệnh ung thư hắc tố",
+    "en": "Melanoma"
+  },
+  "Monkeypox": {
+    "vi": "Bệnh đậu mùa khỉ",
+    "en": "Monkeypox"
+  },
+  "Not HFMD": {
+    "vi": "Bệnh da liễu ngoài tay chân miệng",
+    "en": "Other dermatological diseases besides hand, foot, and mouth disease"
+  },
+  "Healthy_foot": {
+    "vi": "Chân khỏe mạnh",
+    "en": "Healthy foot"
+  },
+  "Healthy_hands": {
+    "vi": "Tay khỏe mạnh",
+    "en": "Healthy hands"
+  },
+  "Healthy_mouth": {
+    "vi": "Miệng khỏe mạnh",
+    "en": "Healthy mouth"
+  },
+  "HFMD_foot": {
+    "vi": "Chân có bệnh tay chân miệng",
+    "en": "Foot with hand, foot and mouth disease"
+  },
+  "HFMD_hands": {
+    "vi": "Tay có bệnh tay chân miệng",
+    "en": "Hands with hand, foot and mouth disease"
+  },
+  "HFMD_mouth": {
+    "vi": "Miệng có bệnh tay chân miệng",
+    "en": "Mouth with hand, foot and mouth disease"
+  },
+  "Disease": {
+    "vi": "Có bệnh",
+    "en": "Disease"
+  }
+}

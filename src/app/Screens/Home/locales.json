@@ -1,0 +1,116 @@
+{
+  "vi": {
+    "header": {
+      "language": "Tiếng Việt"
+    },
+    "hero": {
+      "title": "Diag AI",
+      "subtitle": "Hệ thống hỗ trợ chẩn đoán bệnh\ntay chân miệng cho trẻ em",
+      "galleryButton": "Chọn ảnh từ thư viện",
+      "cameraButton": "Chụp ảnh trực tiếp",
+      "recentResults": "Kết quả chẩn đoán gần nhất",
+      "viewMore": "Xem thêm",
+      "confidence": "Mức độ"
+    },
+    "imagePreview": {
+      "title": "Xem trước ảnh",
+      "cancel": "Hủy",
+      "analyze": "Phân tích"
+    },
+    "loading": {
+      "analyzing": "Đang phân tích hình ảnh...",
+      "pleaseWait": "Vui lòng đợi trong giây lát"
+    },
+    "loading": {
+      "analyzing": "Đang phân tích...",
+      "pleaseWait": "Vui lòng đợi trong giây lát"
+    },
+    "result": {
+      "title": "Kết quả phân tích",
+      "diagnosis": "Chẩn đoán:",
+      "confidence": "Độ tin cậy:",
+      "description": "Mô tả:",
+      "recommendations": "Khuyến nghị:",
+      "newCheck": "Kiểm tra mới",
+      "share": "Chia sẻ",
+      "disclaimer": "Hệ thống sử dụng AI để dự đoán nên thông tin chỉ có tính tham khảo. Vui lòng liên hệ bác sĩ để được tư vấn chính xác."
+    },
+    "history": {
+      "title": "Lịch sử kiểm tra",
+      "empty": "Chưa có lịch sử kiểm tra",
+      "emptyDesc": "Các kết quả phân tích sẽ được lưu tại đây",
+      "clearAll": "Xóa tất cả",
+      "delete": "Xóa",
+      "confidence": "độ tin cậy"
+    },
+    "imagePicker": {
+      "title": "Chọn hình ảnh",
+      "camera": "Chụp ảnh",
+      "cameraDesc": "Mở camera để chụp ảnh mới và chỉnh sửa",
+      "gallery": "Chọn từ thư viện",
+      "galleryDesc": "Chọn ảnh có sẵn và chỉnh sửa, cắt theo ý muốn",
+      "cancel": "Hủy"
+    },
+    "bottomNav": {
+      "home": "Trang chủ",
+      "info": "Giới thiệu"
+    }
+  },
+  "en": {
+    "header": {
+      "language": "English"
+    },
+    "hero": {
+      "title": "Diag AI",
+      "subtitle": "Hand, Foot and Mouth Disease\nDiagnosis Support System for Children",
+      "galleryButton": "Choose from gallery",
+      "cameraButton": "Take a photo",
+      "recentResults": "Recent diagnosis results",
+      "viewMore": "View more",
+      "confidence": "Confidence"
+    },
+    "imagePreview": {
+      "title": "Image Preview",
+      "cancel": "Cancel",
+      "analyze": "Analyze"
+    },
+    "loading": {
+      "analyzing": "Analyzing image...",
+      "pleaseWait": "Please wait a moment"
+    },
+    "loading": {
+      "analyzing": "Analyzing...",
+      "pleaseWait": "Please wait a moment"
+    },
+    "result": {
+      "title": "Analysis Result",
+      "diagnosis": "Diagnosis:",
+      "confidence": "Confidence:",
+      "description": "Description:",
+      "recommendations": "Recommendations:",
+      "newCheck": "New Check",
+      "share": "Share",
+      "disclaimer": "Results are for reference only. Please consult a doctor for accurate advice."
+    },
+    "history": {
+      "title": "Check History",
+      "empty": "No check history",
+      "emptyDesc": "Analysis results will be saved here",
+      "clearAll": "Clear all",
+      "delete": "Delete",
+      "confidence": "confidence"
+    },
+    "imagePicker": {
+      "title": "Choose Image",
+      "camera": "Take Photo",
+      "cameraDesc": "Open camera to take and edit new photo",
+      "gallery": "Choose from Gallery",
+      "galleryDesc": "Select and edit existing photos as you like",
+      "cancel": "Cancel"
+    },
+    "bottomNav": {
+      "home": "Home",
+      "info": "About"
+    }
+  }
+}

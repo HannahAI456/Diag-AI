@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "267519280603",
+    "firebase_url": "https://com-pda-nongnghiepcamau.firebaseio.com",
+    "project_id": "com-pda-nongnghiepcamau",
+    "storage_bucket": "com-pda-nongnghiepcamau.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267519280603:android:1f627f4cde57c2ef7c93fe",
+        "android_client_info": {
+          "package_name": "com.diagai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo03T_w60PpvGnb_4ytYUNQRc5ZDX5eVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
