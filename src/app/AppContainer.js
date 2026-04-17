@@ -9,9 +9,7 @@ import {createSharedElementStackNavigator} from 'react-navigation-shared-element
 import Splash from './Screens/Splash/Splash';
 import {RootNavigation} from './Common/RootNavigation';
 import TabNavigation from './Screens/Home/TabNavigation';
-import NotificationDetailScreen from './Screens/Home/NotificationDetailScreen';
 import HomeScreen from './Screens/Home/HomeScreen';
-import NotificationScreen from './Screens/Home/NotificationScreen';
 import ProfileScreen from './Screens/Home/ProfileScreen';
 import LoginScreen from './Screens/Login/LoginScreen';
 import WebViewDungChung from './Screens/WebViewDungChung/WebViewDungChung';
@@ -29,20 +27,11 @@ const AppContainer = () => {
         }}>
         <MainStack.Screen name="Home" component={TabNavigation} />
         <MainStack.Screen
-          name="NotificationDetail"
-          component={NotificationDetailScreen}
-          options={{headerShown: false}}
-        />
-        <MainStack.Screen
           name="HomeScreen"
           component={HomeScreen}
           options={{headerShown: false}}
         />
-        <MainStack.Screen
-          name="Notification"
-          component={NotificationScreen}
-          options={{headerShown: false}}
-        />
+
         <MainStack.Screen
           name="ProfileScreen"
           component={ProfileScreen}
